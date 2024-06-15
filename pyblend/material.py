@@ -69,25 +69,114 @@ def set_voronoi_texture(mat_or_obj):
 
 def random_transparent_mat(nodes, color=None):
     prin_node = nodes["Principled BSDF"]
+
+    # The mapping was taken by running:
+    # for i, e in enumerate(prin_node.inputs):
+    #     print(f"{i}: {type(e)}: {e}")
+    key2idx = {
+        "Base Color": 0,
+        "Metallic": 1,
+        "Roughness": 2,
+        "IOR": 3,
+        "Alpha": 4 ,
+        "Normal": 5,
+        "Weight": 6,
+        "Subsurface Weight": 7,
+        "Subsurface Radius": 8,
+        "Subsurface Scale": 9,
+        "Subsurface IOR": 10,
+        "Subsurface Anisotropy": 11,
+        "Specular IOR Level": 12,
+        "Specular Tint": 13,
+        "Anisotropic": 14,
+        "Anisotropic Rotation": 15,
+        "Tangent": 16,
+        "Transmission Weight": 17,
+        "Coat Weight": 18,
+        "Coat Roughness": 19,
+        "Coat IOR": 20,
+        "Coat Tint": 21,
+        "Coat Normal": 22,
+        "Sheen Weight": 23,
+        "Sheen Roughness": 24,
+        "Sheen Tint": 25,
+        "Emission Color": 26,
+        "Emission Strength": 27
+    }
+
     if color is None:
-        prin_node.inputs[0].default_value = np.random.uniform(0.3, 0.9, 4)  # Base Color
+        prin_node.inputs[key2idx["Base Color"]].default_value = np.random.uniform(0.3, 0.9, 4)
     else:
-        prin_node.inputs[0].default_value = color
-    for i in range(4, 13):
-        prin_node.inputs[i].default_value = 0
-    prin_node.inputs[14].default_value = 1.45
-    prin_node.inputs[15].default_value = 0  # Roughness
-    prin_node.inputs[17].default_value = 0.9 + rand() * 0.1  # Transmission
+        prin_node.inputs[key2idx["Base Color"]].default_value = color
+    
+    prin_node.inputs[key2idx["Alpha"]].default_value = 0
+    # prin_node.inputs[key2idx["Normal"]].default_value = 0  # Of type vector instead of float
+    prin_node.inputs[key2idx["Weight"]].default_value = 0
+    prin_node.inputs[key2idx["Subsurface Weight"]].default_value = 0
+    # prin_node.inputs[key2idx["Subsurface Radius"]].default_value = 0  # Of type vector instead of float
+    prin_node.inputs[key2idx["Subsurface Scale"]].default_value = 0
+    prin_node.inputs[key2idx["Subsurface IOR"]].default_value = 0
+    prin_node.inputs[key2idx["Subsurface Anisotropy"]].default_value = 0
+    prin_node.inputs[key2idx["Specular IOR Level"]].default_value = 0
+
+    prin_node.inputs[key2idx["Anisotropic"]].default_value = 1.45
+    prin_node.inputs[key2idx["Roughness"]].default_value = 0
+    prin_node.inputs[key2idx["Transmission Weight"]].default_value = 0.9 + rand() * 0.1
+
 
 
 def random_metallic_mat(nodes, color=None):
     prin_node = nodes["Principled BSDF"]
+
+    # The mapping was taken by running:
+    # for i, e in enumerate(prin_node.inputs):
+    #     print(f"{i}: {type(e)}: {e}")
+    key2idx = {
+        "Base Color": 0,
+        "Metallic": 1,
+        "Roughness": 2,
+        "IOR": 3,
+        "Alpha": 4 ,
+        "Normal": 5,
+        "Weight": 6,
+        "Subsurface Weight": 7,
+        "Subsurface Radius": 8,
+        "Subsurface Scale": 9,
+        "Subsurface IOR": 10,
+        "Subsurface Anisotropy": 11,
+        "Specular IOR Level": 12,
+        "Specular Tint": 13,
+        "Anisotropic": 14,
+        "Anisotropic Rotation": 15,
+        "Tangent": 16,
+        "Transmission Weight": 17,
+        "Coat Weight": 18,
+        "Coat Roughness": 19,
+        "Coat IOR": 20,
+        "Coat Tint": 21,
+        "Coat Normal": 22,
+        "Sheen Weight": 23,
+        "Sheen Roughness": 24,
+        "Sheen Tint": 25,
+        "Emission Color": 26,
+        "Emission Strength": 27
+    }
+
     if color is None:
-        prin_node.inputs[0].default_value = np.random.uniform(0.3, 0.9, 4)  # Base Color
+        prin_node.inputs[key2idx["Base Color"]].default_value = np.random.uniform(0.3, 0.9, 4)
     else:
-        prin_node.inputs[0].default_value = color
-    for i in range(6, 16):
-        prin_node.inputs[i].default_value = rand() / 5
+        prin_node.inputs[key2idx["Base Color"]].default_value = color
+    
+    prin_node.inputs[key2idx["Weight"]].default_value = rand() / 5
+    prin_node.inputs[key2idx["Subsurface Weight"]].default_value = rand() / 5
+    # prin_node.inputs[key2idx["Subsurface Radius"]].default_value = rand() / 5  # Of type vector instead of float
+    prin_node.inputs[key2idx["Subsurface Scale"]].default_value = rand() / 5
+    prin_node.inputs[key2idx["Subsurface IOR"]].default_value = rand() / 5
+    prin_node.inputs[key2idx["Subsurface Anisotropy"]].default_value = rand() / 5
+    prin_node.inputs[key2idx["Specular IOR Level"]].default_value = rand() / 5
+    # prin_node.inputs[key2idx["Specular Tint"]].default_value = rand() / 5  # Of type color instead of float
+    prin_node.inputs[key2idx["Anisotropic"]].default_value = rand() / 5
+    prin_node.inputs[key2idx["Anisotropic Rotation"]].default_value = rand() / 5
 
 
 def random_mat(mat, color=None):
