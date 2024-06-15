@@ -56,7 +56,7 @@ def load_obj(obj_root, obj_name, center=True, join=False, smart_uv=False):
         center (bool, optional): whether to center the object. Defaults to True.
     """
     if obj_root.endswith(".obj"):
-        bpy.ops.import_scene.obj(filepath=obj_root)
+        bpy.ops.wm.obj_import(filepath=obj_root)
     elif obj_root.endswith(".ply"):
         bpy.ops.import_mesh.ply(filepath=obj_root)
     elif obj_root.endswith(".glb"):
